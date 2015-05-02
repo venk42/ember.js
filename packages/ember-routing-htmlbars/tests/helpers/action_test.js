@@ -694,7 +694,9 @@ QUnit.test("should unwrap controllers passed as a context", function() {
     template: compile('<button {{action "edit" this}}>edit</button>')
   });
 
-  runAppend(view);
+  expectDeprecation(function() {
+    runAppend(view);
+  }, /with a param that is wrapped in a controller is deprecated./);
 
   view.$('button').trigger('click');
 

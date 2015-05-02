@@ -6,7 +6,7 @@
 import Ember from "ember-metal/core"; // Handlebars, uuid, FEATURES, assert, deprecate
 import { uuid } from "ember-metal/utils";
 import run from "ember-metal/run_loop";
-import { readUnwrappedModel } from "ember-views/streams/utils";
+import { map } from "ember-metal/array";
 import { isSimpleClick } from "ember-views/system/utils";
 import ActionManager from "ember-views/system/action_manager";
 
@@ -15,17 +15,13 @@ export default {
     var getStream = env.hooks.get;
     var read = env.hooks.getValue;
 
-    var actionName = read(params[0]);
+    var actionArgs = map.call(params, read);
+    var actionName = actionArgs.shift();
 
     Ember.assert("You specified a quoteless path to the {{action}} helper " +
                  "which did not resolve to an action name (a string). " +
                  "Perhaps you meant to use a quoted actionName? (e.g. {{action 'save'}}).",
                  typeof actionName === 'string');
-
-    var actionArgs = [];
-    for (var i = 1, l = params.length; i < l; i++) {
-      actionArgs.push(readUnwrappedModel(params[i]));
-    }
 
     var target;
     if (hash.target) {

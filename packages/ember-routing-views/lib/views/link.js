@@ -11,7 +11,6 @@ import { computed } from "ember-metal/computed";
 import { isSimpleClick } from "ember-views/system/utils";
 import EmberComponent from "ember-views/views/component";
 import inject from "ember-runtime/inject";
-import ControllerMixin from "ember-runtime/mixins/controller";
 
 import linkToTemplate from "ember-htmlbars/templates/link-to";
 linkToTemplate.revision = 'Ember@VERSION_STRING_PLACEHOLDER';
@@ -390,17 +389,6 @@ var LinkComponent = EmberComponent.extend({
 
     if (attrs.loadingClass) {
       set(this, 'loadingClass', attrs.loadingClass);
-    }
-
-    for (let i = 0; i < params.length; i++) {
-      var value = params[i];
-
-      while (ControllerMixin.detect(value)) {
-        Ember.deprecate('Providing `{{link-to}}` with a param that is wrapped in a controller is deprecated. Please update `' + attrs.view + '` to use `{{link-to "post" someController.model}}` instead.');
-        value = value.get('model');
-      }
-
-      params[i] = value;
     }
 
     let targetRouteName;

@@ -655,7 +655,7 @@ QUnit.test("The {{link-to}} helper unwraps controllers", function() {
 
   expectDeprecation(function() {
     bootApplication();
-  }, /Providing `{{link-to}}` with a param that is wrapped in a controller is deprecated./);
+  }, /with a param that is wrapped in a controller is deprecated./);
 
   Ember.run(function() { router.handleURL("/"); });
 

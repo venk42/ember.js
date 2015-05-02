@@ -129,7 +129,7 @@ QUnit.test("unwraps controllers", function() {
 
   expectDeprecation(function() {
     runAppend(view);
-  }, /Providing `{{link-to}}` with a param that is wrapped in a controller is deprecated./);
+  }, /with a param that is wrapped in a controller is deprecated./);
 
   equal(view.$().text(), 'Text');
 });
