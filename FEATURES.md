@@ -266,3 +266,7 @@ for a detailed explanation.
   ```
 
   Addd in [#10461](https://github.com/emberjs/ember.js/pull/10461)
+
+* `ember-routing-routable-components`
+
+Derp

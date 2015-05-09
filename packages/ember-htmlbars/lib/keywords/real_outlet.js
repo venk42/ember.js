@@ -53,6 +53,13 @@ export default {
       ViewClass = env.container.lookup('view:toplevel');
     }
 
+    if (Ember.FEATURES.isEnabled('ember-routing-routable-components')) {
+      var Component = outletState.render.Component;
+      if (Component) {
+        ViewClass = Component;
+      }
+    }
+
     var options = {
       component: ViewClass,
       self: toRender.controller,
@@ -61,7 +68,17 @@ export default {
       }
     };
 
-    template = template || toRender.template && toRender.template.raw;
+
+    if (Ember.FEATURES.isEnabled('ember-routing-routable-components')) {
+      if (Component) {
+        options.self = undefined;
+        options.createOptions = undefined;
+      } else {
+        template = template || toRender.template && toRender.template.raw;
+      }
+    } else {
+      template = template || toRender.template && toRender.template.raw;
+    }
 
     if (LOG_VIEW_LOOKUPS && ViewClass) {
       Ember.Logger.info("Rendering " + toRender.name + " with " + ViewClass, { fullName: 'view:' + toRender.name });

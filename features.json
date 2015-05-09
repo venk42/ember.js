@@ -18,7 +18,7 @@
     "ember-views-component-block-info": null,
     "ember-routing-core-outlet": null,
     "ember-libraries-isregistered": null,
-    "ember-routing-routable-components": true
+    "ember-routing-routable-components": null
   },
   "debugStatements": [
     "Ember.warn",

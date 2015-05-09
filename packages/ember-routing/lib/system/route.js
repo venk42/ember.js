@@ -2016,6 +2016,16 @@ function buildRenderOptions(route, namePassed, isDefaultRender, name, options) {
     template: template
   };
 
+  if (Ember.FEATURES.isEnabled('ember-routing-routable-components')) {
+    let componentName = options && options.component || namePassed && name || route.componentName || name;
+    let componentLookup = route.container.lookup('component-lookup:main');
+    let Component = componentLookup.lookupFactory(componentName);
+    if (Component) {
+      renderOptions.Component = Component;
+      renderOptions.ViewClass = undefined;
+    }
+  }
+
   return renderOptions;
 }
 

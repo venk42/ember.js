@@ -302,6 +302,30 @@ QUnit.test("Model passed via renderTemplate model is set as controller's model",
   equal(Ember.$('p:contains(emberjs)', '#qunit-fixture').length, 1, "Passed model was set as controllers model");
 });
 
+if (Ember.FEATURES.isEnabled('ember-routing-routable-components')) {
+  QUnit.test("Renders the component given in the component option", function() {
+    Ember.TEMPLATES['components/home'] = compile("<p>{{name}}</p>");
+
+    Router.map(function() {
+      this.route("home", { path: "/" });
+    });
+
+    App.HomeRoute = Ember.Route.extend({
+      renderTemplate() {
+        this.render({ component: 'home' });
+      }
+    });
+
+    App.HomeComponent = Ember.Component.extend({
+      name: "Home"
+    });
+
+    bootApplication();
+
+    equal(Ember.$('p:contains(Home)', '#qunit-fixture').length, 1, "The home component was rendered");
+  });
+}
+
 QUnit.test("Renders correct view with slash notation", function() {
   Ember.TEMPLATES['home/page'] = compile("<p>{{view.name}}</p>");
 
